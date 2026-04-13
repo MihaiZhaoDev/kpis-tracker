@@ -2,7 +2,7 @@ import { IsNumber, IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class CreateKpiValueDto {
   @IsNumber()
-  actualValue: number;
+  actualValue!: number;
 
   @IsOptional()
   @IsString()

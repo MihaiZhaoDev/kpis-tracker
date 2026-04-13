@@ -15,7 +15,7 @@ export class CreateKpiDto {
   @IsString()
   @MinLength(1)
   @MaxLength(255)
-  name: string;
+  name!: string;
 
   @IsOptional()
   @IsString()
@@ -30,14 +30,14 @@ export class CreateKpiDto {
   @IsString()
   @MinLength(1)
   @MaxLength(50)
-  unit: string;
+  unit!: string;
 
   @IsString()
-  valueType: string;
+  valueType!: string;
 
   @IsNumber()
   @IsPositive()
-  targetValue: number;
+  targetValue!: number;
 
   @IsOptional()
   @IsInt()
