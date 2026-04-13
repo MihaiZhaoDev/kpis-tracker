@@ -3,8 +3,8 @@ import { formatDate, formatValue } from '../../../lib/utils';
 
 interface ValueRow {
   id: string;
-  actual_value: number;
-  recorded_at: string;
+  actualValue: number;
+  recordedAt: string;
   notes: string | null;
 }
 
@@ -17,14 +17,14 @@ interface ValueHistoryTableProps {
 export function ValueHistoryTable({ values, unit, valueType }: ValueHistoryTableProps) {
   const columns: Column<ValueRow>[] = [
     {
-      key: 'recorded_at',
+      key: 'recordedAt',
       label: 'Date',
-      render: (item) => formatDate(item.recorded_at),
+      render: (item) => formatDate(item.recordedAt),
     },
     {
-      key: 'actual_value',
+      key: 'actualValue',
       label: 'Value',
-      render: (item) => formatValue(Number(item.actual_value), unit, valueType),
+      render: (item) => formatValue(Number(item.actualValue), unit, valueType),
     },
     {
       key: 'notes',

@@ -7,6 +7,8 @@ export default {
     './src/**/*.{js,ts,jsx,tsx}',
     '../../packages/ui/src/**/*.{js,ts,jsx,tsx}',
     './node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}',
+    '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}',
+    '../../node_modules/.pnpm/@heroui+theme@*/node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}',
   ],
   theme: { extend: {} },
   darkMode: 'class',

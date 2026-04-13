@@ -2,7 +2,7 @@ import { Card, CardHeader, CardBody, LineChart } from '@wsp/ui';
 import { formatDate } from '../../../lib/utils';
 
 interface TrendLineChartProps {
-  values: { actual_value: number; recorded_at: string }[];
+  values: { actualValue: number; recordedAt: string }[];
   targetValue: number;
 }
 
@@ -10,8 +10,8 @@ export function TrendLineChart({ values, targetValue }: TrendLineChartProps) {
   const chartData = [...values]
     .reverse()
     .map((v) => ({
-      date: formatDate(v.recorded_at),
-      actual: Number(v.actual_value),
+      date: formatDate(v.recordedAt),
+      actual: Number(v.actualValue),
     }));
 
   if (chartData.length === 0) {
