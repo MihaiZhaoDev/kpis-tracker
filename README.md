@@ -14,7 +14,20 @@ A full-stack application for managing projects and tracking flexible KPIs with r
 ### Docker (recommended)
 
 ```bash
+# Copy environment variables
+cp .env.example .env
+
+# Start all services
 docker compose up --build
+```
+
+On first run, run the database migration (in a separate terminal):
+
+```bash
+docker compose exec api node -e "
+  const ds = require('./dist/config/typeorm.config').default;
+  ds.initialize().then(d => d.runMigrations()).then(() => { console.log('Migrations complete'); process.exit(0); });
+"
 ```
 
 - Web UI: http://localhost:8080
@@ -29,14 +42,16 @@ Prerequisites: Node.js 22+, pnpm 9+, PostgreSQL 16
 # Install dependencies
 pnpm install
 
-# Start Postgres (or use Docker)
+# Start Postgres
 docker compose up -d postgres
 
-# Run migrations
+# Configure API environment
 cp apps/api/.env.example apps/api/.env
-cd apps/api && pnpm run migration:run && cd ..
 
-# Start dev servers
+# Run database migrations
+cd apps/api && npx typeorm-ts-node-commonjs migration:run -d src/config/typeorm.config.ts && cd ../..
+
+# Start dev servers (API + Web)
 pnpm dev
 ```
 
