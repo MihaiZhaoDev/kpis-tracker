@@ -12,15 +12,12 @@ FROM base AS builder
 COPY --from=deps /app/ ./
 COPY . .
 RUN pnpm --filter @wsp/shared build && pnpm --filter @wsp/api build
+RUN pnpm --filter @wsp/api deploy --prod /app/deployed
+RUN cp -r /app/packages/shared/dist /app/deployed/node_modules/@wsp/shared/dist
 
 FROM node:22-alpine AS runner
 WORKDIR /app
-COPY --from=builder /app/apps/api/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/apps/api/node_modules ./apps/api/node_modules
-COPY --from=builder /app/packages/shared/dist ./packages/shared/dist
-COPY --from=builder /app/packages/shared/package.json ./packages/shared/
-COPY --from=builder /app/apps/api/package.json ./
+COPY --from=builder /app/deployed ./
 
 EXPOSE 3000
 CMD ["node", "dist/main.js"]
