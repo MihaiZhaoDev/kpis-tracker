@@ -13,7 +13,14 @@ export type EnvConfig = z.infer<typeof envSchema>;
 export function validateEnv() {
   const parsed = envSchema.safeParse(process.env);
   if (!parsed.success) {
-    console.error('Invalid environment variables:', parsed.error.flatten().fieldErrors);
+    console.error('\n❌ Environment validation failed:\n');
+    for (const issue of parsed.error.issues) {
+      const field = issue.path.join('.');
+      console.error(`  ${field}: ${issue.message}`);
+    }
+    console.error(
+      '\n💡 Check your .env file or environment variables. See .env.example for reference.\n',
+    );
     process.exit(1);
   }
   return parsed.data;
