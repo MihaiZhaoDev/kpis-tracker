@@ -8,6 +8,7 @@ import {
   UseGuards,
   ParseUUIDPipe,
 } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { KpiValueService } from './kpi-value.service';
 import { CreateKpiValueDto } from './dto/create-kpi-value.dto';
 import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
@@ -15,6 +16,8 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { User } from '../auth/entities/user.entity';
 
+@ApiTags('KPI Values')
+@ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
 @Controller('projects/:projectId/kpis/:kpiId/values')
 export class KpiValueController {

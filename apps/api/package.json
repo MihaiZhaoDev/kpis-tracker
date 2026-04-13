@@ -12,9 +12,11 @@
     "lint": "eslint \"{src,test}/**/*.ts\"",
     "clean": "rm -rf dist",
     "migration:generate": "typeorm-ts-node-commonjs migration:generate",
-    "migration:run": "typeorm-ts-node-commonjs migration:run -d src/config/typeorm.config.ts"
+    "migration:run": "typeorm-ts-node-commonjs migration:run -d src/config/typeorm.config.ts",
+    "seed": "ts-node src/database/seed.ts"
   },
   "dependencies": {
+    "@nestjs/swagger": "^8.1.0",
     "@nestjs/mapped-types": "^2.1.0",
     "@nestjs/common": "^11.0.0",
     "@nestjs/config": "^4.0.0",
