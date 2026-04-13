@@ -6,6 +6,7 @@ import { StatsBar } from '../components/StatsBar';
 import { StatusDonutChart } from '../components/StatusDonutChart';
 import { useQueries } from '@tanstack/react-query';
 import { dashboardApi } from '../api';
+import type { ProjectSummary } from '@wsp/shared';
 
 export function DashboardPage() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ export function DashboardPage() {
 
   const summaries = summaryQueries
     .filter((q) => q.isSuccess)
-    .map((q) => q.data);
+    .map((q) => q.data) as ProjectSummary[];
 
   if (isLoading) {
     return (
