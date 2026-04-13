@@ -17,17 +17,8 @@ A full-stack application for managing projects and tracking flexible KPIs with r
 # Copy environment variables
 cp .env.example .env
 
-# Start all services
+# Start all services (migrations run automatically on API startup)
 docker compose up --build
-```
-
-On first run, run the database migration (in a separate terminal):
-
-```bash
-docker compose exec api node -e "
-  const ds = require('./dist/config/typeorm.config').default;
-  ds.initialize().then(d => d.runMigrations()).then(() => { console.log('Migrations complete'); process.exit(0); });
-"
 ```
 
 - Web UI: http://localhost:8080
@@ -48,10 +39,7 @@ docker compose up -d postgres
 # Configure API environment
 cp apps/api/.env.example apps/api/.env
 
-# Run database migrations
-cd apps/api && npx typeorm-ts-node-commonjs migration:run -d src/config/typeorm.config.ts && cd ../..
-
-# Start dev servers (API + Web)
+# Start dev servers (migrations run automatically on API startup)
 pnpm dev
 ```
 
