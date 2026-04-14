@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
-import * as request from 'supertest';
+import request from 'supertest';
 import { AppModule } from '../src/app.module';
 
 describe('App (e2e)', () => {
@@ -36,7 +36,7 @@ describe('App (e2e)', () => {
         .post('/api/auth/register')
         .send(user)
         .expect(201)
-        .expect((res) => {
+        .expect((res: any) => {
           expect(res.body.data.user.email).toBe(user.email);
           expect(res.body.data.accessToken).toBeDefined();
           accessToken = res.body.data.accessToken;
@@ -48,7 +48,7 @@ describe('App (e2e)', () => {
         .post('/api/auth/login')
         .send({ email: user.email, password: user.password })
         .expect(201)
-        .expect((res) => {
+        .expect((res: any) => {
           expect(res.body.data.accessToken).toBeDefined();
         });
     });
@@ -58,7 +58,7 @@ describe('App (e2e)', () => {
         .get('/api/auth/me')
         .set('Authorization', `Bearer ${accessToken}`)
         .expect(200)
-        .expect((res) => {
+        .expect((res: any) => {
           expect(res.body.data.email).toBe(user.email);
         });
     });
@@ -77,7 +77,7 @@ describe('App (e2e)', () => {
         .set('Authorization', `Bearer ${accessToken}`)
         .send({ name: 'Test Project', description: 'A test project' })
         .expect(201)
-        .expect((res) => {
+        .expect((res: any) => {
           expect(res.body.data.name).toBe('Test Project');
           projectId = res.body.data.id;
         });
@@ -88,7 +88,7 @@ describe('App (e2e)', () => {
         .get('/api/projects')
         .set('Authorization', `Bearer ${accessToken}`)
         .expect(200)
-        .expect((res) => {
+        .expect((res: any) => {
           expect(res.body.data.length).toBeGreaterThan(0);
           expect(res.body.meta.total).toBeGreaterThan(0);
         });
@@ -99,7 +99,7 @@ describe('App (e2e)', () => {
         .get(`/api/projects/${projectId}`)
         .set('Authorization', `Bearer ${accessToken}`)
         .expect(200)
-        .expect((res) => {
+        .expect((res: any) => {
           expect(res.body.data.id).toBe(projectId);
         });
     });
@@ -110,7 +110,7 @@ describe('App (e2e)', () => {
         .set('Authorization', `Bearer ${accessToken}`)
         .send({ name: 'Updated Project' })
         .expect(200)
-        .expect((res) => {
+        .expect((res: any) => {
           expect(res.body.data.name).toBe('Updated Project');
         });
     });
@@ -129,7 +129,7 @@ describe('App (e2e)', () => {
           category: 'financial',
         })
         .expect(201)
-        .expect((res) => {
+        .expect((res: any) => {
           expect(res.body.data.name).toBe('Revenue');
           kpiId = res.body.data.id;
         });
@@ -140,7 +140,7 @@ describe('App (e2e)', () => {
         .get(`/api/projects/${projectId}/kpis`)
         .set('Authorization', `Bearer ${accessToken}`)
         .expect(200)
-        .expect((res) => {
+        .expect((res: any) => {
           expect(res.body.data.length).toBeGreaterThan(0);
         });
     });
@@ -151,7 +151,7 @@ describe('App (e2e)', () => {
         .set('Authorization', `Bearer ${accessToken}`)
         .send({ actualValue: 5000, notes: 'Mid-quarter update' })
         .expect(201)
-        .expect((res) => {
+        .expect((res: any) => {
           expect(Number(res.body.data.actualValue)).toBe(5000);
         });
     });
@@ -161,7 +161,7 @@ describe('App (e2e)', () => {
         .get(`/api/projects/${projectId}/kpis/${kpiId}/values`)
         .set('Authorization', `Bearer ${accessToken}`)
         .expect(200)
-        .expect((res) => {
+        .expect((res: any) => {
           expect(res.body.data.length).toBeGreaterThan(0);
         });
     });
@@ -171,7 +171,7 @@ describe('App (e2e)', () => {
         .get(`/api/projects/${projectId}/summary`)
         .set('Authorization', `Bearer ${accessToken}`)
         .expect(200)
-        .expect((res) => {
+        .expect((res: any) => {
           expect(res.body.data.totalKpis).toBeGreaterThan(0);
         });
     });
@@ -182,7 +182,7 @@ describe('App (e2e)', () => {
       return request(app.getHttpServer())
         .get('/api/health')
         .expect(200)
-        .expect((res) => {
+        .expect((res: any) => {
           expect(res.body.status).toBe('ok');
         });
     });
