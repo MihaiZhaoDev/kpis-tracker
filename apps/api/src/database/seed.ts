@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
-import * as bcrypt from 'bcrypt';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const bcrypt = require('bcrypt');
 import { dataSourceOptions } from '../config/typeorm.config';
 import { User } from '../modules/auth/entities/user.entity';
 import { Project } from '../modules/project/entities/project.entity';
